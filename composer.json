@@ -13,12 +13,13 @@
         },
         {
             "name": "Eric Draken",
+            "role": "Contributor",
             "homepage": "https://ericdraken.com/"
         }
     ],
     "require": {
         "php": "^7.0",
-        "symfony/yaml": "~2.5"
+        "symfony/yaml": "~3.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.3",

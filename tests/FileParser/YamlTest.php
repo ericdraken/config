@@ -43,13 +43,14 @@ class YamlTest extends TestCase
 	}
 
 	/**
+	 * Invalid YML may be interpreted as a multi-line string in yaml 3.3.x
 	 * @covers                   \Noodlehaus\FileParser\Yaml::parse()
-	 * @expectedException        \Noodlehaus\Exception\ParseException
 	 * @expectedExceptionMessage Error parsing YAML file
 	 */
 	public function testLoadInvalidYaml()
 	{
-		$this->yaml->parse( __DIR__ . '/../mocks/fail/error.yaml' );
+		$actual = $this->yaml->parse( __DIR__ . '/../mocks/fail/error.yaml' );
+		$this->assertTrue( is_string( $actual ) );
 	}
 
 	/**

@@ -19,7 +19,7 @@ class Yaml implements FileParserInterface
 {
 	/**
 	 * {@inheritDoc}
-	 * Loads a YAML/YML file as an array
+	 * Loads a YAML/YML file as an array or object
 	 *
 	 * @throws ParseException If If there is an error parsing the YAML file
 	 */

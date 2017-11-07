@@ -15,38 +15,40 @@ use Noodlehaus\Exception\ParseException;
  */
 class Json implements FileParserInterface
 {
-    /**
-     * {@inheritDoc}
-     * Loads a JSON file as an array
-     *
-     * @throws ParseException If there is an error parsing the JSON file
-     */
-    public function parse($path)
-    {
-        $data = json_decode(file_get_contents($path), true);
+	/**
+	 * {@inheritDoc}
+	 * Loads a JSON file as an array
+	 *
+	 * @throws ParseException If there is an error parsing the JSON file
+	 */
+	public function parse( $path )
+	{
+		$data = json_decode( file_get_contents( $path ), true );
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $error_message  = 'Syntax error';
-            if (function_exists('json_last_error_msg')) {
-                $error_message = json_last_error_msg();
-            }
+		if ( json_last_error() !== JSON_ERROR_NONE )
+		{
+			$error_message = 'Syntax error';
+			if ( function_exists( 'json_last_error_msg' ) )
+			{
+				$error_message = json_last_error_msg();
+			}
 
-            $error = array(
-                'message' => $error_message,
-                'type'    => json_last_error(),
-                'file'    => $path,
-            );
-            throw new ParseException($error);
-        }
+			$error = array(
+				'message' => $error_message,
+				'type'    => json_last_error(),
+				'file'    => $path,
+			);
+			throw new ParseException( $error );
+		}
 
-        return $data;
-    }
+		return $data;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public static function getSupportedExtensions()
-    {
-        return array('json');
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function getSupportedExtensions()
+	{
+		return array( 'json' );
+	}
 }

@@ -5,6 +5,12 @@ namespace Noodlehaus;
 use Noodlehaus\Exception\FileNotFoundException;
 use Noodlehaus\Exception\UnsupportedFormatException;
 use Noodlehaus\Exception\EmptyDirectoryException;
+use Noodlehaus\FileParser\FileParserInterface;
+use Noodlehaus\FileParser\Ini;
+use Noodlehaus\FileParser\Json;
+use Noodlehaus\FileParser\Php;
+use Noodlehaus\FileParser\Xml;
+use Noodlehaus\FileParser\Yaml;
 
 /**
  * Config
@@ -22,13 +28,13 @@ class Config extends AbstractConfig
 	 *
 	 * @var array
 	 */
-	private $supportedFileParsers = array(
-		'Noodlehaus\FileParser\Php',
-		'Noodlehaus\FileParser\Ini',
-		'Noodlehaus\FileParser\Json',
-		'Noodlehaus\FileParser\Xml',
-		'Noodlehaus\FileParser\Yaml'
-	);
+	private $supportedFileParsers = [
+		Php::class,
+		Ini::class,
+		Json::class,
+		Xml::class,
+		Yaml::class
+	];
 
 	/**
 	 * Static method for loading a Config instance.
@@ -37,7 +43,7 @@ class Config extends AbstractConfig
 	 *
 	 * @return Config
 	 */
-	public static function load( $path )
+	public static function load( $path ): Config
 	{
 		return new static( $path );
 	}
@@ -52,7 +58,7 @@ class Config extends AbstractConfig
 	public function __construct( $path )
 	{
 		$paths      = $this->getValidPath( $path );
-		$this->data = array();
+		$this->data = [];
 
 		foreach ( $paths as $path )
 		{
@@ -79,11 +85,11 @@ class Config extends AbstractConfig
 	 *
 	 * @param  string $extension
 	 *
-	 * @return \Noodlehaus\FileParser\FileParserInterface
+	 * @return FileParserInterface
 	 *
 	 * @throws UnsupportedFormatException If `$path` is an unsupported file format
 	 */
-	private function getParser( $extension )
+	private function getParser( string $extension ): FileParserInterface
 	{
 		foreach ( $this->supportedFileParsers as $fileParser )
 		{
@@ -107,9 +113,9 @@ class Config extends AbstractConfig
 	 *
 	 * @throws FileNotFoundException   If a file is not found at `$path`
 	 */
-	private function getPathFromArray( $path )
+	private function getPathFromArray( array $path ): array
 	{
-		$paths = array();
+		$paths = [];
 
 		foreach ( $path as $unverifiedPath )
 		{
@@ -152,7 +158,7 @@ class Config extends AbstractConfig
 	 *
 	 * @throws FileNotFoundException   If a file is not found at `$path`
 	 */
-	private function getValidPath( $path )
+	private function getValidPath( $path ): array
 	{
 		// If `$path` is array
 		if ( is_array( $path ) )
@@ -178,6 +184,6 @@ class Config extends AbstractConfig
 			throw new FileNotFoundException( "Configuration file: [$path] cannot be found" );
 		}
 
-		return array( $path );
+		return [ $path ];
 	}
 }

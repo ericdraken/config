@@ -24,7 +24,7 @@ class Php implements FileParserInterface
 	 * @throws ParseException             If the PHP file throws an exception
 	 * @throws UnsupportedFormatException If the PHP file does not return an array
 	 */
-	public function parse( $path )
+	public function parse( string $path )
 	{
 		// Require the file, if it throws an exception, rethrow it
 		try
@@ -58,8 +58,8 @@ class Php implements FileParserInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function getSupportedExtensions()
+	public static function getSupportedExtensions(): array
 	{
-		return array( 'php' );
+		return [ 'php' ];
 	}
 }

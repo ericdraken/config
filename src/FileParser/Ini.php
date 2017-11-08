@@ -23,7 +23,7 @@ class Ini implements FileParserInterface
 	 *
 	 * @throws ParseException If there is an error parsing the INI file
 	 */
-	public function parse( $path )
+	public function parse( string $path )
 	{
 		$data = @parse_ini_file( $path, true );
 
@@ -57,7 +57,7 @@ class Ini implements FileParserInterface
 	 *
 	 * @return array
 	 */
-	protected function expandDottedKey( $data )
+	protected function expandDottedKey( array $data ): array
 	{
 		foreach ( $data as $key => $value )
 		{
@@ -66,7 +66,7 @@ class Ini implements FileParserInterface
 				$newKey    = substr( $key, 0, $found );
 				$remainder = substr( $key, $found + 1 );
 
-				$expandedValue = $this->expandDottedKey( array( $remainder => $value ) );
+				$expandedValue = $this->expandDottedKey( [ $remainder => $value ] );
 				if ( isset( $data[ $newKey ] ) )
 				{
 					$data[ $newKey ] = array_merge_recursive( $data[ $newKey ], $expandedValue );
@@ -84,8 +84,8 @@ class Ini implements FileParserInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function getSupportedExtensions()
+	public static function getSupportedExtensions(): array
 	{
-		return array( 'ini' );
+		return [ 'ini' ];
 	}
 }

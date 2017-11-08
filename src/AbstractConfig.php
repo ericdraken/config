@@ -28,7 +28,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 	 *
 	 * @var array
 	 */
-	protected $cache = array();
+	protected $cache = [];
 
 	/**
 	 * Constructor method and sets default options, if any
@@ -50,7 +50,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 	 */
 	protected function getDefaults()
 	{
-		return array();
+		return [];
 	}
 
 	/**
@@ -60,7 +60,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get( $key, $default = null )
+	public function get( string $key, $default = null )
 	{
 		if ( $this->has( $key ) )
 		{
@@ -73,7 +73,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set( $key, $value )
+	public function set( string $key, $value )
 	{
 		$segs     = explode( '.', $key );
 		$root     = &$this->data;
@@ -89,7 +89,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 			$cacheKey .= $part;
 			if ( ! isset( $root[ $part ] ) && count( $segs ) )
 			{
-				$root[ $part ] = array();
+				$root[ $part ] = [];
 			}
 			$root = &$root[ $part ];
 
@@ -119,7 +119,7 @@ abstract class AbstractConfig implements ArrayAccess, ConfigInterface, Iterator
 	/**
 	 * {@inheritDoc}
 	 */
-	public function has( $key )
+	public function has( string $key ): bool
 	{
 		// Check if already cached
 		if ( isset( $this->cache[ $key ] ) )

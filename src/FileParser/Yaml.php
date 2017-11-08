@@ -23,7 +23,7 @@ class Yaml implements FileParserInterface
 	 *
 	 * @throws ParseException If If there is an error parsing the YAML file
 	 */
-	public function parse( $path )
+	public function parse( string $path )
 	{
 		try
 		{
@@ -44,8 +44,8 @@ class Yaml implements FileParserInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function getSupportedExtensions()
+	public static function getSupportedExtensions(): array
 	{
-		return array( 'yaml', 'yml' );
+		return [ 'yaml', 'yml' ];
 	}
 }

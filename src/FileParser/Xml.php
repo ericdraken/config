@@ -21,7 +21,7 @@ class Xml implements FileParserInterface
 	 *
 	 * @throws ParseException If there is an error parsing the XML file
 	 */
-	public function parse( $path )
+	public function parse( string $path )
 	{
 		libxml_use_internal_errors( true );
 
@@ -49,8 +49,8 @@ class Xml implements FileParserInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	public static function getSupportedExtensions()
+	public static function getSupportedExtensions(): array
 	{
-		return array( 'xml' );
+		return [ 'xml' ];
 	}
 }
